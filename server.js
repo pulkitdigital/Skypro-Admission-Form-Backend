@@ -83,6 +83,10 @@ app.post("/api/submit", upload.fields(fields), async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("Backend started successfully 🚀");
+});
+
 /* ===============================
    QUEUE STATUS ENDPOINT (OPTIONAL)
 ================================ */
