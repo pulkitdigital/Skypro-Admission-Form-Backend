@@ -41,26 +41,22 @@
 // Backend/services/googleService.js
 
 const { google } = require("googleapis");
+const path = require("path");
 
 /* ===============================
-   DECODE BASE64 SERVICE ACCOUNT
+   GOOGLE AUTH (FILE-BASED)
+   HOSTINGER SAFE
 ================================ */
-if (!process.env.GOOGLE_SERVICE_ACCOUNT_BASE64) {
-  throw new Error("❌ GOOGLE_SERVICE_ACCOUNT_BASE64 is missing");
-}
 
-const serviceAccount = JSON.parse(
-  Buffer.from(
-    process.env.GOOGLE_SERVICE_ACCOUNT_BASE64,
-    "base64"
-  ).toString("utf8")
+// Path to service account JSON file (inside project)
+const KEY_FILE_PATH = path.join(
+  __dirname,
+  "..",
+  "skypro-admission-form-backend.json"
 );
 
-/* ===============================
-   GOOGLE AUTH
-================================ */
 const auth = new google.auth.GoogleAuth({
-  credentials: serviceAccount,
+  keyFile: KEY_FILE_PATH,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
