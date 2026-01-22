@@ -130,11 +130,17 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS || "")
   .map(o => o.trim())
   .filter(Boolean);
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
-    // Allow Postman / server-to-server
+    // Allow requests with no origin (Postman, server-to-server, mobile apps)
     if (!origin) return callback(null, true);
 
+    // Allow localhost in development
+    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+      return callback(null, true);
+    }
+
+    // Check allowed origins from env
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
@@ -143,10 +149,23 @@ app.use(cors({
   },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+  credentials: true,
+};
 
-// REQUIRED for multipart/form-data
-app.options("*", cors());
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
+
+// Handle preflight for all routes
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    return res.status(200).end();
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -236,9 +255,27 @@ app.get("/health", (req, res) => {
 });
 
 /* ===============================
+   ERROR HANDLERS
+================================ */
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("❌ Global Error:", err);
+  res.status(err.status || 500).json({ 
+    error: err.message || "Internal server error" 
+  });
+});
+
+/* ===============================
    START SERVER
 ================================ */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ Backend running on port ${PORT}`);
+  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🌐 Allowed Origins: ${allowedOrigins.join(', ') || 'localhost (auto-allowed in dev)'}`);
 });
