@@ -769,6 +769,7 @@ async function sendAdminEmail({ formData, pdfPath, uploadedFiles = [] }) {
         <p style="margin: 5px 0;"><strong>Best Regards,</strong></p>
         <p style="margin: 5px 0;"><strong>SkyPro Aviation Admissions Team</strong></p>
         <p style="margin: 5px 0;">📧 ${ADMIN_EMAIL}</p>
+        <p style="margin: 5px 0;">📞 +91 8209388460</p>
         <p style="margin: 15px 0 5px 0; font-size: 12px; color: #9ca3af;">
           This is an automated confirmation email. Please do not reply to this message.
         </p>
