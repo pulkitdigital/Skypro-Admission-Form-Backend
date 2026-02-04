@@ -69,8 +69,9 @@ async function generatePDF(formData, uploadedFiles = []) {
           yPosition = 100;
         }
 
-        // Section Header with background
-        doc.rect(50, yPosition - 5, 495, 25)
+        // Section Header with background - CONSISTENT BORDER THICKNESS
+        doc.lineWidth(1.5)
+           .rect(50, yPosition - 5, 495, 25)
            .fillAndStroke("#f0f4f8", "#003366");
         
         doc.fontSize(13)
@@ -187,7 +188,8 @@ async function generatePDF(formData, uploadedFiles = []) {
       yPosition += 10;
       
       // Declaration box - reduced height from 100 to 75
-      doc.rect(50, yPosition, 495, 75)
+      doc.lineWidth(1.5)
+         .rect(50, yPosition, 495, 75)
          .fillAndStroke("#fffbf0", "#f4b221");
       
       yPosition += 10;
@@ -217,8 +219,9 @@ async function generatePDF(formData, uploadedFiles = []) {
         yPosition = 100;
       }
 
-      // Office Use Only Header
-      doc.rect(50, yPosition - 5, 495, 25)
+      // Office Use Only Header - CONSISTENT BORDER THICKNESS
+      doc.lineWidth(1.5)
+         .rect(50, yPosition - 5, 495, 25)
          .fillAndStroke("#f0f4f8", "#003366");
       
       doc.fontSize(13)
@@ -235,19 +238,23 @@ async function generatePDF(formData, uploadedFiles = []) {
 
       // Row 1: Gross Course Fee and Registration Fee
       doc.text("Gross Course Fee:", 60, yPosition);
-      doc.rect(180, yPosition - 3, 150, 20).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(180, yPosition - 3, 150, 20).stroke("#cccccc");
       
       doc.text("Registration Fee:", 345, yPosition);
-      doc.rect(465, yPosition - 3, 80, 20).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(465, yPosition - 3, 80, 20).stroke("#cccccc");
       
       yPosition += 30;
 
       // Row 2: Discount and Net Fee Payable
       doc.text("Discount:", 60, yPosition);
-      doc.rect(180, yPosition - 3, 150, 20).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(180, yPosition - 3, 150, 20).stroke("#cccccc");
       
       doc.text("Net Fee Payable:", 345, yPosition);
-      doc.rect(465, yPosition - 3, 80, 20).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(465, yPosition - 3, 80, 20).stroke("#cccccc");
       
       yPosition += 40;
 
@@ -258,15 +265,18 @@ async function generatePDF(formData, uploadedFiles = []) {
       
       // Student signature box
       doc.text("Student Sign:", 60, yPosition);
-      doc.rect(60, yPosition + 15, 150, 35).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(60, yPosition + 15, 150, 35).stroke("#cccccc");
       
       // Date box
       doc.text("Date:", 230, yPosition);
-      doc.rect(230, yPosition + 15, 150, 35).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(230, yPosition + 15, 150, 35).stroke("#cccccc");
       
       // Administrative signature box
       doc.text("Administrative Sign:", 400, yPosition);
-      doc.rect(400, yPosition + 15, 145, 35).stroke("#cccccc");
+      doc.lineWidth(1)
+         .rect(400, yPosition + 15, 145, 35).stroke("#cccccc");
 
       // Footer note
       yPosition += 65;
