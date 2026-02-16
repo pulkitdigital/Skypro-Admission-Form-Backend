@@ -491,7 +491,7 @@ async function generatePDF(formData, uploadedFiles = []) {
       if (studentSignFile && fs.existsSync(studentSignFile.path)) {
         try {
           doc.image(studentSignFile.path, 190, yPosition + 26, {
-            width: 130,
+            width: 125,
             height: 25,
             align: 'center'
           });
@@ -522,7 +522,7 @@ async function generatePDF(formData, uploadedFiles = []) {
       if (parentSignatureFile && fs.existsSync(parentSignatureFile.path)) {
         try {
           doc.image(parentSignatureFile.path, 350, yPosition + 26, {
-            width: 130,
+            width: 125,
             height: 25,
             align: 'center'
           });
