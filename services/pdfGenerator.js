@@ -420,7 +420,7 @@ async function generatePDF(formData, uploadedFiles = []) {
         const isUploaded = uploadedFiles && Array.isArray(uploadedFiles) && 
           uploadedFiles.some(file => file.fieldname === fieldName);
         
-        return [label, isUploaded ? "✓ Attached" : "✗ Not Attached"];
+        return [label, isUploaded ? "Attached" : "Not Attached"];
       });
 
       addSection("7. DOCUMENTS SUBMITTED", documentStatus);
@@ -491,8 +491,8 @@ async function generatePDF(formData, uploadedFiles = []) {
       if (studentSignFile && fs.existsSync(studentSignFile.path)) {
         try {
           doc.image(studentSignFile.path, 190, yPosition + 26, {
-            width: 140,
-            height: 28,
+            width: 130,
+            height: 25,
             align: 'center'
           });
         } catch (err) {
@@ -522,8 +522,8 @@ async function generatePDF(formData, uploadedFiles = []) {
       if (parentSignatureFile && fs.existsSync(parentSignatureFile.path)) {
         try {
           doc.image(parentSignatureFile.path, 350, yPosition + 26, {
-            width: 140,
-            height: 28,
+            width: 130,
+            height: 25,
             align: 'center'
           });
         } catch (err) {
