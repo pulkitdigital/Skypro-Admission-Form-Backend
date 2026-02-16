@@ -324,7 +324,7 @@ async function generatePDF(formData, uploadedFiles = []) {
         ["Permanent Address", formData.permanentAddress],
         ["Current Address", formData.currentAddress],
         ["DGCA Computer Number", formData.dgca],
-        ["eGCA Number", formData.egca],
+        ["eGCA ID", formData.egca],
         ["Medical Status", formData.medical]
       ], { showPhoto: true, showSignature: true });
 
